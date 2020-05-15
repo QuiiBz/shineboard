@@ -10,7 +10,7 @@
 
         <script src="https://kit.fontawesome.com/4afd7b4786.js" crossorigin="anonymous"></script>
 
-        <title>CodeShr</title>
+        <title>ShineBoard</title>
     </head>
     <body>
         <div id="app">

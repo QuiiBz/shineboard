@@ -2,7 +2,7 @@
     <div>
         <header>
             <div class="container">
-                <router-link :to="{ name: 'home' }"><img class="logo" src="/storage/codeshr.png" alt="Logo" /></router-link>
+                <router-link :to="{ name: 'home' }"><img class="logo" src="/storage/logo.png" alt="Logo" /></router-link>
                 <div class="buttons">
                     <u-i-button :action="openGithub" icon="fab fa-github" />
                     <u-i-button :action="openTwitter" icon="fab fa-twitter"/>
@@ -28,12 +28,12 @@
 
             openGithub() {
 
-                window.open('https://github.com/ShrCode/shrcode', '_blank');
+                window.open('https://github.com/ShineBoard/shineboard', '_blank');
             },
 
             openTwitter() {
 
-                window.open('https://twitter.com/ShrCode', '_blank');
+                window.open('https://twitter.com/ShineBoard', '_blank');
             },
         },
     }
