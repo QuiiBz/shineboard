@@ -2216,12 +2216,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PasteContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/PasteContent */ "./resources/js/components/PasteContent.vue");
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _components_elements_UIButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/elements/UIButton */ "./resources/js/components/elements/UIButton.vue");
+/* harmony import */ var _components_elements_UIInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/elements/UIInfo */ "./resources/js/components/elements/UIInfo.vue");
 //
 //
 //
@@ -2240,9 +2236,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    PasteContent: _components_PasteContent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    PasteContent: _components_PasteContent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    UIButton: _components_elements_UIButton__WEBPACK_IMPORTED_MODULE_1__["default"],
+    UIInfo: _components_elements_UIInfo__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -49344,56 +49344,52 @@ var render = function() {
     "div",
     { staticClass: "paste-board" },
     [
-      _c("div", { class: "fetching" + (this.fetching ? " active" : "") }, [
-        _vm._v("Fetching paste...")
-      ]),
+      _c("u-i-info", {
+        attrs: {
+          active: this.fetching,
+          type: "info",
+          text: "Fetching paste..."
+        }
+      }),
       _vm._v(" "),
-      _c("div", { class: "error" + (this.error ? " active" : "") }, [
-        _vm._v(_vm._s(this.error))
-      ]),
+      _c("u-i-info", {
+        attrs: { active: this.error, type: "error", text: this.error }
+      }),
       _vm._v(" "),
       _c("div", { staticClass: "header" }, [
-        _c("div", { staticClass: "buttons" }, [
-          _c(
-            "div",
-            {
-              staticClass: "button",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.newPaste($event)
-                }
+        _c(
+          "div",
+          { staticClass: "buttons" },
+          [
+            _c("u-i-button", {
+              attrs: {
+                action: _vm.newPaste,
+                icon: "far fa-file-alt",
+                hover: "New paste"
               }
-            },
-            [
-              _c("i", { staticClass: "far fa-file-alt" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "info" }, [_vm._v("New paste")])
-            ]
-          )
-        ]),
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("p", { staticClass: "title" }, [_vm._v(_vm._s(this.paste.title))]),
         _vm._v(" "),
-        _c("div", { staticClass: "buttons" }, [
-          _c(
-            "div",
-            {
-              staticClass: "button",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.raw($event)
-                }
-              }
-            },
-            [
-              _c("i", { staticClass: "far fa-file" }),
-              _vm._v(" "),
-              _c("span", { staticClass: "info" }, [_vm._v("Open raw")])
-            ]
-          )
-        ])
+        _c(
+          "div",
+          { staticClass: "buttons" },
+          [
+            !this.error
+              ? _c("u-i-button", {
+                  attrs: {
+                    action: _vm.raw,
+                    icon: "far fa-file",
+                    hover: "Open raw"
+                  }
+                })
+              : _vm._e()
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       !this.fetching

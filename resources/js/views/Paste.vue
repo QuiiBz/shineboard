@@ -1,20 +1,14 @@
 <template>
     <div class="paste-board">
-        <div :class="'fetching' + (this.fetching ? ' active' : '')">Fetching paste...</div>
-        <div :class="'error' + (this.error ? ' active' : '')">{{ this.error }}</div>
+        <u-i-info :active="this.fetching" type="info" text="Fetching paste..."/>
+        <u-i-info :active="this.error" type="error" :text="this.error"/>
         <div class="header">
             <div class="buttons">
-                <div @click.prevent="newPaste" class="button">
-                    <i class="far fa-file-alt"></i>
-                    <span class="info">New paste</span>
-                </div>
+                <u-i-button :action="newPaste" icon="far fa-file-alt" hover="New paste" />
             </div>
             <p class="title">{{ this.paste.title }}</p>
             <div class="buttons">
-                <div @click.prevent="raw" class="button">
-                    <i class="far fa-file"></i>
-                    <span class="info">Open raw</span>
-                </div>
+                <u-i-button v-if="!this.error" :action="raw" icon="far fa-file" hover="Open raw" />
             </div>
         </div>
         <paste-content v-if="!this.fetching" class="paste" :language="this.paste.language">{{ this.paste.code }}</paste-content>
@@ -23,11 +17,15 @@
 
 <script>
     import PasteContent from '../components/PasteContent';
+    import UIButton from '../components/elements/UIButton';
+    import UIInfo from '../components/elements/UIInfo';
 
     export default {
 
         components: {
             PasteContent,
+            UIButton,
+            UIInfo,
         },
         data() {
 

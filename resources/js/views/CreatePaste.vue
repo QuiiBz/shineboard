@@ -1,9 +1,9 @@
 <template>
     <div class="paste-board">
-        <u-i-info :active="this.saving" type="info" text="Saving your paste..."></u-i-info>
-        <u-i-info :active="this.reseted" type="success" text="Paste reseted!"></u-i-info>
-        <u-i-info :active="this.error" type="error" :text="this.error"></u-i-info>
-        <u-i-info :active="this.saved" type="success" text="Paste saved! (Link copied to your clipboard)"></u-i-info>
+        <u-i-info :active="this.saving" type="info" text="Saving your paste..." />
+        <u-i-info :active="this.reseted" type="success" text="Paste reseted!" />
+        <u-i-info :active="this.error" type="error" :text="this.error" />
+        <u-i-info :active="this.saved" type="success" text="Paste saved! (Link copied to your clipboard)" />
         <div class="header">
             <div class="buttons">
                 <u-i-language-selector :change="setLanguage" />
