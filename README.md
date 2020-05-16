@@ -5,7 +5,7 @@
 # ShineBoard
 ## A Beautiful way to share code
 
-<img src="https://i.imgur.com/VnZM3kd.png"></p>
+<img src="https://i.imgur.com/E8wVJoW.png"></p>
 
 ShineBoard is a open-source platform to make sharing code easier. Wasted by all the .txt files you downloaded and the poor hastebin codes ? Switch now to ShineBoard :
 * Open [shineboard.io](https://shineboard.io)
@@ -16,7 +16,18 @@ Alternatively, you can use the [CLI](https://github.com/ShineBoard/cli) to creat
 
 ## Contributing
 
-Coming soon.
+If you have ever worked on a Laravel application, it's the same :
+* Fork this repository, then clone it to your device
+* Install PHP dependencies with `composer install`
+* Install JS dependencies with :
+  * NPM : `npm install`
+  * Yarn : `yarn`
+* Copy `.env.exemple` to `.env` and change DB fields to your local configuration
+* Run `php artisan serve` to launch the built in Laravel server
+* Run `npm run watch` or `yarn watch` to watch for CSS and JS files to be compiled
+* Access the application at [localhost:8000](http://localhost:8000)
+
+To make sure nothing is broken after your modifications, run `php artisan test`.
 
 ## License
 
