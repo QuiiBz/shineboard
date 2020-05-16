@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 on: [push, pull_request]
 jobs:
   tests:
@@ -15,3 +15,19 @@ jobs:
           touch database/database.sqlite
       - name: Launch tests
         run: php artisan test
+  deploy:
+    if: github.ref == 'refs/heads/master'
+      needs: [tests]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v1
+        - name: Deploy
+          env:
+            DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          run: |
+            eval "$(ssh-agent -s)"
+            ssh-add - <<< "${DEPLOY_KEY}"
+            mkdir ~/.ssh
+            echo -e "HostName shineboard.io\n\tStrictHostKeyChecking no\n\t"User deploy >> ~/.ssh/config
+            composer install
+            vendor/bin/dep deploy
