@@ -1,60 +1,17 @@
-name: CI/CD
+name: CI
 on: [push, pull_request]
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Build
-        run: |
-          npm install
-          npm run prod
-          cat public/mix-manifest.json
-      - name: Upload build files
-        uses: actions/upload-artifact@v1
-        with:
-          name: assets
-          path: public
   tests:
-    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Setup PHP
-        uses: shivammathur/setup-php@master
-        with:
-          php-version: 7.3
-          extension-csv: mbstring, bcmath
+      - name: Copy ENV file
+        run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
       - name: Install Dependencies
-        run: composer install
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Create DB and schemas
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
       - name: Launch tests
         run: php artisan test
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: [build, tests]
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - uses: actions/checkout@v1
-      - name: Download build assets
-        uses: actions/download-artifact@v1
-        with:
-          name: assets
-          path: public
-      - name: Setup PHP
-        uses: shivammathur/setup-php@master
-        with:
-          php-version: 7.3
-          extension-csv: mbstring, bcmath
-      - name: Composer install
-        run: composer install
-      - name: Setup Deployer
-        uses: atymic/deployer-php-action@master
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-      - name: Deploy
-        env:
-          DOT_ENV: ${{ secrets.DOT_ENV }}
-        run: dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
