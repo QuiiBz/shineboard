@@ -51,6 +51,7 @@ add('writable_dirs', []);
 
 host('shineboard.io')
     ->hostname('51.83.40.52')
+    ->port('3400')
     ->stage('production')
     ->user('deploy')
     ->set('deploy_path', '/var/www');
