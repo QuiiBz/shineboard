@@ -1,6 +1,8 @@
 <p align="center"><img src="https://i.imgur.com/4TU5pl8.png" width="200"></p>
 
-<p align="center"></p>
+<p align="center">
+[![Actions Status](https://github.com/ShineBoard/shineboard/workflows/main/badge.svg)](https://github.com/ShineBoard/shineboard/actions)
+</p>
 
 # ShineBoard
 ## A Beautiful way to share code
