@@ -68,7 +68,7 @@
             },
             raw() {
 
-                window.open(`http://localhost:8000/raw/${this.$route.params.slug}`, '_blank');
+                window.open(`${process.env.MIX_APP_URL}/raw/${this.$route.params.slug}`, '_blank');
             },
         }
     }
