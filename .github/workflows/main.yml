@@ -1,0 +1,19 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Copy ENV file
+        run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Generate key
+        run: php artisan key:generate
+      - name: Create DB and schemas
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+      - name: Launch tests
+        run: php artisan test
