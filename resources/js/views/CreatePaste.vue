@@ -15,7 +15,8 @@
             </div>
         </div>
         <div class="paste-content">
-            <textarea class="language-" placeholder="Paste your code here" v-model="paste.code"></textarea>
+            <!--<textarea class="language-" placeholder="Paste your code here" v-model="paste.code"></textarea>-->
+            <paste-creator :language="this.paste.language"/>
         </div>
     </div>
 </template>
@@ -25,6 +26,7 @@
     import UIButton from '../components/elements/UIButton';
     import UILanguageSelector from '../components/elements/UILanguageSelector';
     import UIInfo from '../components/elements/UIInfo';
+    import PasteCreator from '../components/PasteCreator';
 
     export default {
 
@@ -33,6 +35,7 @@
             UIButton,
             UILanguageSelector,
             UIInfo,
+            PasteCreator,
         },
         data() {
 
@@ -215,15 +218,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-
-            & textarea {
-
-                resize: none;
-                box-sizing: border-box;
-                height: 100%;
-                background: none;
-                border: none;
-            }
+            overflow: hidden;
         }
     }
 
