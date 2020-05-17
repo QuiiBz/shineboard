@@ -1,6 +1,6 @@
 <template>
     <pre class="paste-creator">
-        <code @input="highlight" :class="'editable ' + this.languageClass" id="editable" contenteditable></code>
+        <code @input="highlight" :class="'editable ' + this.languageClass" id="editable" contenteditable spellcheck="false"></code>
     </pre>
 </template>
 
