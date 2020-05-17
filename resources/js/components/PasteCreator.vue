@@ -53,6 +53,13 @@
 
             this.highlight();
         },
+        watch: {
+
+            language() {
+
+                this.highlight();
+            }
+        }
     }
 </script>
 
