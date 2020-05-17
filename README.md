@@ -1,8 +1,6 @@
 <p align="center"><img src="https://i.imgur.com/4TU5pl8.png" width="200"></p>
 
-<p align="center">
 ![](https://github.com/ShineBoard/shineboard/workflows/CI/badge.svg)
-</p>
 
 # ShineBoard
 ## A Beautiful way to share code
