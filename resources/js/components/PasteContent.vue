@@ -1,7 +1,5 @@
 <template>
-    <div ref="codeBlock">
-        <pre :class="this.languageClass"><code><slot /></code></pre>
-    </div>
+    <pre :class="this.languageClass"><code><slot /></code></pre>
 </template>
 
 <script>
