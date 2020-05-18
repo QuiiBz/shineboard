@@ -6,17 +6,21 @@
         <u-i-info :active="this.saved" type="success" text="Paste saved! (Link copied to your clipboard)" />
         <div class="header">
             <div class="buttons">
+                <u-i-button :action="save" icon="far fa-save" hover="Save paste" />
                 <u-i-language-selector :change="setLanguage" />
             </div>
             <input type="text" class="title" :style="'width: ' + inputWidth" @keypress="updateWidth" placeholder="Paste title" v-model="paste.title" />
             <div class="buttons">
-                <u-i-button :action="save" icon="far fa-save" hover="Save paste" />
-                <u-i-button :action="reset" icon="fas fa-trash-restore" hover="Reset paste"></u-i-button>
+                <u-i-button :action="reset" icon="fas fa-trash-restore" hover="Reset paste" />
+                <u-i-button :action="settings" icon="fas fa-cogs" hover="Settings" id="settings" />
+            </div>
+            <div v-if="this.showSettings" class="settings">
+                <u-i-checkbox :action="togglePrivate" :checked="this.paste.private" text="Does this paste should be private ?" />
+                <u-i-input v-if="this.paste.private" placeholder="Password" :value="this.paste.private" :change="setPassword" />
             </div>
         </div>
         <div class="paste-content">
-            <!--<textarea class="language-" placeholder="Paste your code here" v-model="paste.code"></textarea>-->
-            <paste-creator :language="this.paste.language"/>
+            <paste-creator :change="setCode" :language="this.paste.language"/>
         </div>
     </div>
 </template>
@@ -27,6 +31,8 @@
     import UILanguageSelector from '../components/elements/UILanguageSelector';
     import UIInfo from '../components/elements/UIInfo';
     import PasteCreator from '../components/PasteCreator';
+    import UICheckbox from '../components/elements/UICheckbox';
+    import UIInput from '../components/elements/UIInput';
 
     export default {
 
@@ -36,6 +42,8 @@
             UILanguageSelector,
             UIInfo,
             PasteCreator,
+            UICheckbox,
+            UIInput,
         },
         data() {
 
@@ -46,12 +54,14 @@
                     title: 'Untitled',
                     language: 'javascript',
                     code: '',
+                    private: null,
                 },
                 saving: false,
                 reseted: false,
                 saved: false,
                 error: '',
                 inputWidth: '',
+                showSettings: false,
             }
         },
         mounted() {
@@ -93,6 +103,7 @@
                     language: this.paste.language,
                     title: this.paste.title,
                     code: this.paste.code,
+                    private: this.paste.private,
 
                 }).then((response) => {
 
@@ -137,10 +148,30 @@
                     title: 'Untitled',
                     language: 'javascript',
                     code: '',
+                    private: null,
                 };
 
                 setTimeout(() => this.reseted = false, 1000);
             },
+            settings() {
+
+                this.showSettings = !this.showSettings;
+            },
+            togglePrivate() {
+
+                if(!this.paste.private)
+                    this.paste.private = 'mypass';
+                else
+                    this.paste.private = null;
+            },
+            setPassword(password) {
+
+                this.paste.private = password;
+            },
+            setCode(code) {
+
+                this.paste.code = code;
+            }
         }
     }
 </script>
@@ -191,7 +222,7 @@
 
                 display: flex;
                 align-items: center;
-                margin: 0 25px;
+                margin: auto 25px;
             }
 
             .title {
@@ -209,6 +240,23 @@
 
                     background: $header-background;
                 }
+            }
+
+            .settings {
+
+                position: absolute;
+                top: 160px;
+                right: calc(10vw + 50px);
+                width: auto;
+                height: auto;
+                padding: 20px;
+                margin: 10px;
+                border-radius: 20px;
+                background-color: #263238;
+                border: 1px solid #000000;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+                display: flex;
+                flex-direction: column;
             }
         }
 

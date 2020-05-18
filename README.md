@@ -5,14 +5,22 @@
 # ShineBoard
 ## A Beautiful way to share code
 
-<img src="https://i.imgur.com/E8wVJoW.png"></p>
+<img src="https://i.imgur.com/juVJwp7.png"></p>
 
 ShineBoard is a open-source platform to make sharing code easier. Wasted by all the .txt files you downloaded and the poor hastebin codes ? Switch now to ShineBoard :
 * Open [shineboard.io](https://shineboard.io)
 * Paste your file's content
-* Hit CTRL + S to save the paste, and then CTRL + V to share the link
+* Hit `CTRL + S` to save the paste, and then `CTRL + V` to share the link
 
 Alternatively, you can use the [CLI](https://github.com/ShineBoard/cli) to create paste from your terminal.
+
+## Features
+* Over +20 languages supported
+* Save paste by hitting `CTRL + S`, the link is automatically pasted in your clipboard
+* Ability to set a title for a paste
+* Possibility to set a custom password, to restrict the paste security
+* Automatic code highlight for all the supported languages
+* A CLI is available, to paste your files without leaving your terminal
 
 ## Contributing
 

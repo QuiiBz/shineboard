@@ -1,9 +1,9 @@
-function copy(text) {
+export default (text) => {
 
-    if(navigator.clipboard)
-        navigator.clipboard.writeText(text);
-    else if (window.clipboardData)  // IE
-        window.clipboardData.setData('text', text);
+    const created = document.createElement('input');
+    created.style.hidden = 'true';
+    created.value = text;
+
+    created.select();
+    document.execCommand('copy');
 }
-
-export default copy;

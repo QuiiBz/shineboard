@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Paste;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,7 @@ class PasteController extends Controller
             'language' => 'required|string', // TODO set languages,
             'title' => 'required|string',
             'code' => 'required|string|min:10',
+            'private' => 'nullable|string',
 
         ], $this->messages());
 
@@ -36,6 +38,7 @@ class PasteController extends Controller
         }
 
         $slug = $this->findSlug();
+        $private = $request->input('private') ? Hash::make($request->input('private')) : null;
 
         Paste::create([
 
@@ -44,6 +47,7 @@ class PasteController extends Controller
             'language' => $request->input('language'),
             'title' => $request->input('title'),
             'code' => $request->input('code'),
+            'private' => $private,
         ]);
 
         return response()->json([
@@ -101,6 +105,7 @@ class PasteController extends Controller
                 'language' => $paste->language,
                 'title' => $paste->title,
                 'code' => $paste->code,
+                'private' => ($paste->private ? true : false),
             ]);
         }
 

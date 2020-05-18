@@ -1,16 +1,16 @@
 <template>
     <pre class="paste-creator">
-        <code @input="highlight" :class="'editable ' + this.languageClass" id="editable" contenteditable spellcheck="false"></code>
+        <code @input="highlight" :class="'editable ' + this.languageClass" id="editable" contenteditable placeholder="Paste your code..." spellcheck="false" autofocus></code>
     </pre>
 </template>
 
 <script>
     import hljs from 'highlight.js';
-    import rangy from 'rangy/lib/rangy-selectionsaverestore';
+    import { saveCaretPosition } from '../utils/Caret';
 
     export default {
 
-        props: ['language'],
+        props: ['language', 'change'],
         computed: {
 
             languageClass() {
@@ -23,15 +23,15 @@
             highlight() {
 
                 const element = document.getElementById('editable');
-                const selection = rangy.saveSelection();
-                const rangyRange = document.querySelector('.rangySelectionBoundary');
+                const restore = saveCaretPosition(element);
+
+                this.change(element.innerText);
 
                 element.innerHTML = element.innerText;
-                element.appendChild(rangyRange);
 
                 hljs.highlightBlock(element);
 
-                rangy.restoreSelection(selection);
+                restore();
             },
         },
         mounted() {
@@ -40,14 +40,13 @@
 
                 if(event.keyCode === 9) {
 
+                    document.execCommand('insertHTML', false, '&#009');
                     event.preventDefault();
 
-                    const range = window.getSelection().getRangeAt(0);
-                    const tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
+                } else if(event.keyCode === 13) {
 
-                    range.insertNode(tabNode);
-                    range.setStartAfter(tabNode);
-                    range.setEndAfter(tabNode);
+                    document.execCommand('insertHTML', false, '&#010');
+                    event.preventDefault();
                 }
             });
 
@@ -64,10 +63,13 @@
 </script>
 
 <style lang="scss">
+    @import '../../sass/themes/default';
+
     .paste-creator {
 
         height: 100%;
         margin: 0;
+        white-space: nowrap;
 
         .editable {
 
@@ -75,6 +77,12 @@
             width: 100%;
             height: 100%;
             overflow: scroll;
+
+            &[placeholder]:empty:before {
+
+                content: attr(placeholder);
+                color: $comment;
+            }
         }
     }
 </style>
