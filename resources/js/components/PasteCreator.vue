@@ -72,6 +72,7 @@
 
         height: 100%;
         margin: 0;
+        white-space: nowrap;
 
         .editable {
 
