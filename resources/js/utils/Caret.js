@@ -1,33 +1,49 @@
-export function saveCaretPosition(context){
-    var selection = window.getSelection();
-    var range = selection.getRangeAt(0);
-    range.setStart(  context, 0 );
-    var len = range.toString().length;
+export const saveCaretPosition = (context) => {
 
-    return function restore(){
-        var pos = getTextNodeAtPosition(context, len);
-        selection.removeAllRanges();
-        var range = new Range();
-        range.setStart(pos.node ,pos.position);
-        selection.addRange(range);
+    const selection = window.getSelection();
 
+    try {
+
+        const range = selection.getRangeAt(0);
+        range.setStart(  context, 0 );
+        const len = range.toString().length;
+
+        return () => {
+
+            const pos = getTextNodeAtPosition(context, len);
+            selection.removeAllRanges();
+            const range = new Range();
+            range.setStart(pos.node ,pos.position);
+            selection.addRange(range);
+        }
+
+    } catch(error) {
+
+        return () => console.warn('Not range at index "0"');
     }
 }
 
-function getTextNodeAtPosition(root, index){
-    var lastNode = null;
+const getTextNodeAtPosition = (root, index) => {
 
-    var treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT,function next(elem) {
-        if(index > elem.textContent.length){
+    let lastNode = null;
+
+    const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, (elem) => {
+
+        if(index > elem.textContent.length) {
+
             index -= elem.textContent.length;
             lastNode = elem;
             return NodeFilter.FILTER_REJECT
         }
+
         return NodeFilter.FILTER_ACCEPT;
     });
-    var c = treeWalker.nextNode();
+
+    const c = treeWalker.nextNode();
+
     return {
-        node: c? c: root,
+
+        node: c ? c: root,
         position: index
     };
 }
