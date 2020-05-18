@@ -1,6 +1,6 @@
 <template>
     <pre class="paste-creator">
-        <code @input="highlight" :class="'editable ' + this.languageClass" id="editable" contenteditable spellcheck="false"></code>
+        <code @input="highlight" :class="'editable ' + this.languageClass" id="editable" contenteditable placeholder="Paste your code..." spellcheck="false"></code>
     </pre>
 </template>
 
@@ -66,6 +66,8 @@
 </script>
 
 <style lang="scss">
+    @import '../../sass/themes/default';
+
     .paste-creator {
 
         height: 100%;
@@ -77,6 +79,12 @@
             width: 100%;
             height: 100%;
             overflow: scroll;
+
+            &[placeholder]:empty:before {
+
+                content: attr(placeholder);
+                color: $comment;
+            }
         }
     }
 </style>
