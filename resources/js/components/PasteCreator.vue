@@ -40,14 +40,13 @@
 
                 if(event.keyCode === 9) {
 
+                    document.execCommand('insertHTML', false, '&#009');
                     event.preventDefault();
 
-                    const range = window.getSelection().getRangeAt(0);
-                    const tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
+                } else if(event.keyCode === 13) {
 
-                    range.insertNode(tabNode);
-                    range.setStartAfter(tabNode);
-                    range.setEndAfter(tabNode);
+                    document.execCommand('insertHTML', false, '&#010');
+                    event.preventDefault();
                 }
             });
 
