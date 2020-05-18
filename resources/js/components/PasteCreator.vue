@@ -6,7 +6,7 @@
 
 <script>
     import hljs from 'highlight.js';
-    import rangy from 'rangy/lib/rangy-selectionsaverestore';
+    import { saveCaretPosition } from '../utils/Caret';
 
     export default {
 
@@ -23,17 +23,15 @@
             highlight() {
 
                 const element = document.getElementById('editable');
-                const selection = rangy.saveSelection();
-                const rangyRange = document.querySelector('.rangySelectionBoundary');
+                const restore = saveCaretPosition(element);
 
                 this.change(element.innerText);
 
                 element.innerHTML = element.innerText;
-                element.appendChild(rangyRange);
 
                 hljs.highlightBlock(element);
 
-                rangy.restoreSelection(selection);
+                restore();
             },
         },
         mounted() {
