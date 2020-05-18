@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/paste', 'PasteController@save');
+Route::post('/paste/unlock', 'UnlockController@unlock');
 
 Route::get('/paste/raw/{slug}', 'RawController@raw');
 Route::get('/paste/embed/{slug}.js', 'EmbedController@embed');

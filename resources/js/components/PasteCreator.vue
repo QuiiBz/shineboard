@@ -10,7 +10,7 @@
 
     export default {
 
-        props: ['language'],
+        props: ['language', 'change'],
         computed: {
 
             languageClass() {
@@ -25,6 +25,8 @@
                 const element = document.getElementById('editable');
                 const selection = rangy.saveSelection();
                 const rangyRange = document.querySelector('.rangySelectionBoundary');
+
+                this.change(element.innerText);
 
                 element.innerHTML = element.innerText;
                 element.appendChild(rangyRange);

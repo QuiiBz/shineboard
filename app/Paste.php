@@ -11,5 +11,5 @@ class Paste extends Model
      *
      * @var array
      */
-    protected $fillable = ['slug', 'user', 'language', 'title', 'code'];
+    protected $fillable = ['slug', 'user', 'language', 'title', 'code', 'private'];
 }

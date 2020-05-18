@@ -5,13 +5,15 @@
         <div class="header">
             <div class="buttons">
                 <u-i-button :action="newPaste" icon="far fa-file-alt" hover="New paste" />
+                <p class="paste-language">{{ this.paste.language }}</p>
             </div>
             <p class="title">{{ this.paste.title }}</p>
             <div class="buttons">
                 <u-i-button v-if="!this.error" :action="raw" icon="far fa-file" hover="Open raw" />
             </div>
         </div>
-        <paste-content v-if="!this.fetching" class="paste" :language="this.paste.language">{{ this.paste.code }}</paste-content>
+        <paste-content v-if="!this.fetching && !this.paste.private" class="paste" :language="this.paste.language">{{ this.paste.code }}</paste-content>
+        <password-validator v-if="this.paste.private" :slug="this.slug" :validate="setPaste" />
     </div>
 </template>
 
@@ -19,6 +21,7 @@
     import PasteContent from '../components/PasteContent';
     import UIButton from '../components/elements/UIButton';
     import UIInfo from '../components/elements/UIInfo';
+    import PasswordValidator from '../components/elements/PasswordValidator';
 
     export default {
 
@@ -26,6 +29,7 @@
             PasteContent,
             UIButton,
             UIInfo,
+            PasswordValidator,
         },
         data() {
 
@@ -36,7 +40,8 @@
                     user: '',
                     language: '',
                     title: '...',
-                    code: ''
+                    code: '',
+                    private: false,
                 },
                 fetching: true,
                 error: '',
@@ -44,15 +49,20 @@
         },
         mounted() {
 
-            axios.get(`/paste/${this.$route.params.slug}`).then((response) => {
+            axios.get(`/paste/${this.slug}`).then((response) => {
 
                 this.fetching = false;
 
                 const result = response.data;
 
-                if(result.exist)
-                    this.paste = result;
-                else
+                if(result.exist) {
+
+                    if(result.private)
+                        this.paste.private = true;
+                    else
+                        this.paste = result;
+
+                } else
                     this.error = 'This paste does not exist';
 
             }).catch((error) => {
@@ -70,6 +80,17 @@
 
                 window.open(`${process.env.MIX_APP_URL}/raw/${this.$route.params.slug}`, '_blank');
             },
+            setPaste(data) {
+
+                this.paste = data;
+            },
+        },
+        computed: {
+
+            slug() {
+
+                return this.$route.params.slug;
+            }
         }
     }
 </script>
@@ -101,6 +122,14 @@
             padding: 20px;
             overflow-y: scroll;
             margin-bottom: 30px;
+        }
+
+        .paste-language {
+
+            font-size: 16px;
+            color: #b7b7b7;
+            padding: 11px 12px;
+            margin: 0;
         }
     }
 </style>

@@ -23,6 +23,7 @@ class PasteController extends Controller
             'language' => 'required|string', // TODO set languages,
             'title' => 'required|string',
             'code' => 'required|string|min:10',
+            'private' => 'nullable|string',
 
         ], $this->messages());
 
@@ -44,6 +45,7 @@ class PasteController extends Controller
             'language' => $request->input('language'),
             'title' => $request->input('title'),
             'code' => $request->input('code'),
+            'private' => $request->input('private'),
         ]);
 
         return response()->json([
@@ -101,6 +103,7 @@ class PasteController extends Controller
                 'language' => $paste->language,
                 'title' => $paste->title,
                 'code' => $paste->code,
+                'private' => ($paste->private ? true : false),
             ]);
         }
 
