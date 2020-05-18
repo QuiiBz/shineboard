@@ -14,7 +14,6 @@
 </template>
 
 <script>
-    import PasteBoard from './CreatePaste';
     import UIButton from '../components/elements/UIButton';
 
     export default {
@@ -22,7 +21,6 @@
         components: {
 
             UIButton,
-            PasteBoard,
         },
         methods: {
 

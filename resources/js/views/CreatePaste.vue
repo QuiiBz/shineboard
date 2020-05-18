@@ -15,7 +15,6 @@
             </div>
         </div>
         <div class="paste-content">
-            <!--<textarea class="language-" placeholder="Paste your code here" v-model="paste.code"></textarea>-->
             <paste-creator :language="this.paste.language"/>
         </div>
     </div>
