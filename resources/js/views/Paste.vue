@@ -49,7 +49,7 @@
         },
         mounted() {
 
-            axios.get(`/paste/${this.slug}`).then((response) => {
+            axios.get(`/paste/get/${this.slug}`).then((response) => {
 
                 this.fetching = false;
 

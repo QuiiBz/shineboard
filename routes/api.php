@@ -20,6 +20,6 @@ Route::post('/paste/unlock', 'UnlockController@unlock');
 Route::get('/paste/raw/{slug}', 'RawController@raw');
 Route::get('/paste/embed/{slug}.js', 'EmbedController@embed');
 
-Route::get('/paste/{slug}', 'PasteController@get');
+Route::get('/paste/get/{slug}', 'PasteController@get');
 
 
