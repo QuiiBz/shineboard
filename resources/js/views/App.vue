@@ -31,7 +31,7 @@
 
             openTwitter() {
 
-                window.open('https://twitter.com/ShineBoard', '_blank');
+                window.open('https://twitter.com/ShineBoardApp', '_blank');
             },
         },
     }
